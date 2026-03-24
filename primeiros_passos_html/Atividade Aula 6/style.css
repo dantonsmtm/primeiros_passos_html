@@ -1,0 +1,180 @@
+/* VARIAVEIS GLOBAIS */
+:root {
+    --cor-primaria: #004A8B;
+    --cor-destaque: #ffcc00;
+    --cor-texto-claro: #ffffff;
+    --cor-texto-escuro: #333333;
+    --cor-fundo: rgb(248, 248, 250);
+    --cor-rodape: #222222;
+    --cor-rodape-texto: #cccccc;
+    --fonte-principal: 'Segoe UI', Arial, Helvetica, sans-serif;
+    --borda-raio: 5px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais da pagina */
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-escuro);
+    line-height: 1.6;
+}
+
+/* CABECALHO (HEADER) */
+header {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    padding: 30px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+/* NAVEGACAO */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+nav a {
+    color: var(--cor-texto-claro);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: var(--borda-raio);
+    transition: all 0.3s ease-in-out;
+}
+
+nav a:hover {
+    background-color: var(--cor-destaque);
+    color: var(--cor-primaria);
+    transform: translateY(-3px);
+}
+
+/* CONTEUDO PRINCIPAL */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ARTIGOS e SECOES */
+article, section {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+article h2, section h3 {
+    color: var(--cor-primaria);
+    margin-bottom: 15px;
+}
+
+article img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+/* LISTAS - OUTRAS NOTICIAS */
+section ul {
+    list-style: none;
+}
+
+section ul li {
+    padding: 12px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+section ul li:last-child {
+    border-bottom: none;
+}
+
+/* RODAPE */
+footer {
+    background-color: var(--cor-rodape);
+    color: var(--cor-rodape-texto);
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+}
+
+footer hr {
+    border: none;
+    margin-bottom: 20px;
+}
+
+footer a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* MENU DE CONTATO (contact-nav) */
+.contact-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.contact-nav p {
+    color: var(--cor-rodape-texto);
+    font-size: 0.95rem;
+}
+
+.contact-nav__btn {
+    display: inline-block;
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro) !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    padding: 12px 28px;
+    border-radius: var(--borda-raio);
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid var(--cor-primaria);
+}
+
+.contact-nav__btn:hover {
+    background-color: var(--cor-destaque);
+    color: var(--cor-primaria) !important;
+    border-color: var(--cor-destaque);
+    transform: translateY(-3px);
+    text-decoration: none !important;
+}
+
+/* Estado :active e :focus para feedback de clique */
+.contact-nav__btn:active {
+    transform: translateY(1px);
+    background-color: #ffaa00;
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.4);
+}
+
+.contact-nav__btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.6);
+}
