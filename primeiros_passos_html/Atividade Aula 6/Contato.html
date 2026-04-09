@@ -4,90 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Contato - Tech News Senac</title>
-    <style>
-        /* Estilos específicos do formulário de contato */
-        .form-container {
-            background-color: #ffffff;
-            padding: 35px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .form-container h2 {
-            color: #004a8d;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 6px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-            font-size: 1rem;
-            color: #333;
-            background-color: #f8f8fa;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #004a8d;
-            background-color: #fff;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 130px;
-        }
-
-        .btn-enviar {
-            background-color: #004a8d;
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn-enviar:hover {
-            background-color: #ffcc00;
-            color: #004a8d;
-            transform: translateY(-3px);
-        }
-    </style>
+    <title>Contato — Tech News Senac</title>
 </head>
 <body>
 
     <header>
-        <h1>Tech News Senac</h1>
-        <nav>
-            <a href="index.html">Home</a> |
-            <a href="cursos.html">Cursos</a> |
-            <a href="contato.html">Contato</a>
-        </nav>
+        <div class="header-inner">
+            <h1>Tech News <span>Senac</span></h1>
+            <p class="header-tagline">Portal de Notícias em Tecnologia</p>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="noticias.html">Notícias</a>
+                <a href="cursos.html">Cursos</a>
+                <a href="contato.html" class="active">Contato</a>
+            </nav>
+        </div>
     </header>
 
     <main>
         <div class="form-container">
             <h2>Entre em Contato</h2>
+            <p class="form-subtitle">Envie sua dúvida ou sugestão e retornaremos em breve.</p>
             <form action="https://formsubmit.co/your@email.com" method="POST">
                 <div class="form-group">
                     <label for="email">E-Mail</label>
@@ -97,15 +34,25 @@
                     <label for="mensagem">Mensagem</label>
                     <textarea name="mensagem" id="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
                 </div>
-                <button type="submit" class="btn-enviar">Enviar</button>
+                <button type="submit" class="btn-enviar">Enviar Mensagem</button>
             </form>
         </div>
     </main>
 
     <footer>
-        <hr>
-        <p>Desenvolvido Melo Tec</p>
-        <p><a href="mailto:contato@escola.com">Enviar E-mail</a></p>
+        <div class="footer-inner">
+            <p class="footer-brand">Tech News <span>Senac</span></p>
+            <p class="footer-desc">Informação tecnológica para quem está construindo o futuro.</p>
+            <nav class="contact-nav" aria-label="Menu de contato">
+                <p>Prefere enviar por e-mail direto?</p>
+                <a href="mailto:contato@escola.com"
+                   aria-label="Enviar e-mail de contato"
+                   class="contact-nav__btn">
+                   ✉ contato@escola.com
+                </a>
+            </nav>
+            <p class="footer-copy">© 2026 Tech News Senac — Desenvolvido por Melo Tec</p>
+        </div>
     </footer>
 
 </body>
