@@ -1,14 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Devoluções · Biblioteca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<h1>Noticias Gamer</h1>
-<nav><a href="https://www.tecmundo.com.br/software/411168-google-lanca-nano-banana-2-com-novos-recursos-e-mais-velocidade.htm"></a>Novidade</nav>
-<h1>teste</h1>
 <body>
-    
+  <div class="shell">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-left">
+        <h1>Painel de Devoluções</h1>
+        <p class="subtitle">Sistema de Controle · Biblioteca</p>
+      </div>
+      <div class="stamp-badge">Uso interno</div>
+    </div>
+
+    <!-- CONTADORES -->
+    <div class="counters">
+      <div class="counter-card">
+        <span class="counter-label">Total processados</span>
+        <span class="counter-value" id="totalProcessados">0</span>
+      </div>
+      <div class="counter-card multa">
+        <span class="counter-label">Livros com multa</span>
+        <span class="counter-value" id="totalMulta">0</span>
+      </div>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <div class="form-card">
+      <p class="form-title">Registrar devolução</p>
+      <div class="form-row">
+        <div class="field">
+          <label for="inputNome">Nome do livro</label>
+          <input type="text" id="inputNome" placeholder="Ex: Dom Casmurro">
+        </div>
+        <div class="field field-dias">
+          <label for="inputDias">Dias de atraso</label>
+          <input type="number" id="inputDias" placeholder="0" min="0" value="0">
+        </div>
+        <button class="btn-registrar" id="btnRegistrar">Registrar</button>
+      </div>
+      <p class="error-msg" id="errorMsg">⚠ Preencha o nome do livro.</p>
+    </div>
+
+    <!-- TABELA / LISTA -->
+    <div class="table-card">
+      <div class="table-header">
+        <span>Título</span>
+        <span>Status</span>
+        <span>Ação</span>
+      </div>
+      <ul class="livros-lista" id="listaLivros"></ul>
+      <div class="empty-state visible" id="emptyState">
+        <div class="empty-icon">📚</div>
+        <p>Nenhum livro registrado ainda</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

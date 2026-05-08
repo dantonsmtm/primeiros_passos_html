@@ -1,0 +1,380 @@
+/* ============================================================
+   PAINEL DE DEVOLUÇÕES — style.css
+   ============================================================ */
+
+/* ── Variáveis ── */
+:root {
+  --bg:              #f5f0e8;
+  --surface:         #fffdf7;
+  --ink:             #1a1208;
+  --ink-light:       #6b5c3e;
+  --accent:          #2d5016;
+  --accent-light:    #4a7a28;
+  --warning:         #c0392b;
+  --warning-bg:      #fdf0ef;
+  --warning-border:  #e8b4b0;
+  --ok-bg:           #f0f7eb;
+  --ok-border:       #b4d4a0;
+  --stamp:           #8b3a2a;
+  --border:          #d4c9a8;
+}
+
+/* ── Reset & Base ── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,160,110,0.08) 28px),
+    repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(180,160,110,0.04) 28px);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* ── Layout principal ── */
+.shell {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+
+.header-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+
+.header-left .subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.stamp-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--stamp);
+  border: 2px solid var(--stamp);
+  padding: 6px 10px;
+  border-radius: 2px;
+  opacity: 0.85;
+  transform: rotate(2deg);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Contadores ── */
+.counters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.counter-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.counter-card.multa {
+  border-color: var(--warning-border);
+  background: var(--warning-bg);
+}
+
+.counter-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ink-light);
+}
+
+.counter-card.multa .counter-label {
+  color: var(--warning);
+}
+
+.counter-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.counter-card.multa .counter-value {
+  color: var(--warning);
+}
+
+/* ── Formulário ── */
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.form-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-light);
+}
+
+.field input {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.field input:focus {
+  border-color: var(--accent-light);
+  background: #fff;
+}
+
+.field-dias input {
+  width: 90px;
+}
+
+.btn-registrar {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 9px 16px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.btn-registrar:hover  { background: var(--accent-light); }
+.btn-registrar:active { transform: scale(0.97); }
+
+.error-msg {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--warning);
+  margin-top: 8px;
+  display: none;
+  letter-spacing: 0.5px;
+}
+
+.error-msg.visible { display: block; }
+
+/* ── Tabela / Lista ── */
+.table-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 110px 160px;
+  padding: 10px 16px;
+  background: var(--ink);
+  gap: 8px;
+}
+
+.table-header span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.livros-lista {
+  list-style: none;
+}
+
+/* ── Item de livro ── */
+.livro-item {
+  display: grid;
+  grid-template-columns: 1fr 110px 160px;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+  animation: slideIn 0.25s ease;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.livro-item:last-child { border-bottom: none; }
+
+.livro-item.em-dia {
+  background: var(--ok-bg);
+  border-left: 3px solid var(--accent-light);
+}
+
+.livro-item.atrasado {
+  background: var(--warning-bg);
+  border-left: 3px solid var(--warning);
+}
+
+.livro-nome {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.livro-status {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dias-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-light);
+}
+
+.badge-atrasado {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--warning);
+  background: rgba(192, 57, 43, 0.12);
+  padding: 2px 6px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.badge-ok {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-light);
+  background: rgba(74, 122, 40, 0.12);
+  padding: 2px 6px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.btn-arquivar {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--ink-light);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.btn-arquivar:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.livro-item.atrasado .btn-arquivar:hover {
+  background: var(--warning);
+  border-color: var(--warning);
+  color: #fff;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  display: none;
+}
+
+.empty-state.visible { display: block; }
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  opacity: 0.4;
+}
+
+.empty-state p {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* ── Animação de entrada ── */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
