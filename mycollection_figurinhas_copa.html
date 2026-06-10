@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyCollection · Figurinhas da Copa</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f5f4;
+      --surface:   #ffffff;
+      --surface2:  #f1f0ed;
+      --border:    rgba(0,0,0,0.12);
+      --border2:   rgba(0,0,0,0.22);
+      --text:      #1a1a18;
+      --text2:     #6b6a65;
+      --text3:     #a09f9a;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem 1rem;
+    }
+
+    #app { max-width: 760px; margin: 0 auto; }
+
+    /* ── Header / Stats ── */
+    .header {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: .75rem;
+    }
+    .header h1 i { margin-right: 6px; vertical-align: -2px; color: #1D9E75; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat {
+      background: var(--surface2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: .75rem;
+      text-align: center;
+    }
+    .stat-label { font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+    .stat-val   { font-size: 24px; font-weight: 500; }
+
+    /* ── Form ── */
+    .form-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .form-full  { grid-template-columns: 1fr; }
+    label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 3px; }
+    input[type="text"], input[type="url"], select {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color .15s;
+    }
+    input[type="text"]:focus, input[type="url"]:focus, select:focus {
+      border-color: #1D9E75;
+      box-shadow: 0 0 0 3px rgba(29,158,117,.12);
+    }
+    .row-check { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .row-check input { width: 16px; height: 16px; accent-color: #EF9F27; cursor: pointer; }
+    .row-check label { font-size: 13px; color: var(--text); margin: 0; cursor: pointer; }
+    .btn-add {
+      width: 100%;
+      padding: 9px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-md);
+      background: var(--surface2);
+      color: var(--text);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-add:hover { background: #e4e3df; }
+    .btn-add i { margin-right: 4px; vertical-align: -2px; }
+
+    /* ── Search ── */
+    .search-wrap { margin-bottom: 1rem; position: relative; }
+    .search-wrap i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3);
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .search-wrap input {
+      padding-left: 34px;
+      width: 100%;
+    }
+
+    /* ── Grid ── */
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: .75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: border .15s, box-shadow .15s;
+    }
+    .card.repetida { border: 2px dashed #EF9F27; }
+    .card.favorito { border: 2px solid #1D9E75; box-shadow: 0 0 0 3px rgba(29,158,117,.10); }
+    .card.troca    { border: 2px solid #D4537E; box-shadow: 0 0 0 3px rgba(212,83,126,.10); }
+
+    .card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin-bottom: 6px;
+      background: var(--surface2);
+    }
+    .card-name  { font-size: 12px; font-weight: 500; text-align: center; margin-bottom: 3px; word-break: break-word; }
+    .card-rare  { font-size: 11px; color: var(--text2); margin-bottom: 5px; }
+
+    .card-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-md);
+      margin-bottom: 6px;
+    }
+    .tag-rep   { background: #FAEEDA; color: #854F0B; }
+    .tag-fav   { background: #E1F5EE; color: #0F6E56; }
+    .tag-troca { background: #FBEAF0; color: #993556; }
+
+    .card-btns { display: flex; gap: 5px; width: 100%; justify-content: center; flex-wrap: wrap; }
+    .card-btns button {
+      font-size: 13px;
+      padding: 4px 8px;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-md);
+      background: var(--surface2);
+      color: var(--text);
+      cursor: pointer;
+      transition: background .12s;
+      display: flex; align-items: center; gap: 2px;
+    }
+    .card-btns button:hover { background: #e4e3df; }
+    .card-btns .btn-del:hover { background: #FCEBEB; color: #A32D2D; border-color: #F09595; }
+
+    .empty {
+      text-align: center;
+      color: var(--text3);
+      font-size: 14px;
+      padding: 2.5rem 1rem;
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <h1><i class="ti ti-album"></i> MyCollection · Figurinhas da Copa</h1>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Total</div><div class="stat-val" id="s-total">0</div></div>
+      <div class="stat"><div class="stat-label">Repetidas</div><div class="stat-val" id="s-rep">0</div></div>
+      <div class="stat"><div class="stat-label">Únicas</div><div class="stat-val" id="s-unico">0</div></div>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-grid">
+      <div>
+        <label for="f-nome">Nome da figurinha</label>
+        <input type="text" id="f-nome" placeholder="Ex: Mbappé" />
+      </div>
+      <div>
+        <label for="f-rarity">Raridade</label>
+        <select id="f-rarity">
+          <option value="Comum">Comum</option>
+          <option value="Especial">Especial</option>
+          <option value="Brilhante">✨ Brilhante</option>
+          <option value="Lendária">⭐ Lendária</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid form-full">
+      <div>
+        <label for="f-img">URL da imagem (opcional)</label>
+        <input type="url" id="f-img" placeholder="https://..." />
+      </div>
+    </div>
+    <div class="row-check">
+      <input type="checkbox" id="f-rep" />
+      <label for="f-rep">Figurinha repetida</label>
+    </div>
+    <button class="btn-add" onclick="addCard()">
+      <i class="ti ti-plus"></i> Adicionar à coleção
+    </button>
+  </div>
+
+  <div class="search-wrap">
+    <i class="ti ti-search"></i>
+    <input type="text" id="search" placeholder="Buscar figurinha em tempo real..." oninput="filtrar()" />
+  </div>
+
+  <div id="grid">
+    <div class="empty">Nenhuma figurinha ainda. Adicione a primeira! ⚽</div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'mycollection_figurinhas';
+
+  /* ── Carregar do localStorage ── */
+  let items = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+  function salvar() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }
+
+  function updateStats() {
+    const total = items.length;
+    const rep   = items.filter(i => i.repetida).length;
+    document.getElementById('s-total').textContent = total;
+    document.getElementById('s-rep').textContent   = rep;
+    document.getElementById('s-unico').textContent = total - rep;
+  }
+
+  function filtrar() {
+    const q = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(c => {
+      c.style.display = c.dataset.nome.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+
+  /* ── Constrói o elemento card a partir de um objeto item ── */
+  function criarCardEl(item) {
+    const { id, nome, imgUrl, rarity, repetida, favorito, troca } = item;
+
+    const card = document.createElement('div');
+    let cls = 'card';
+    if (repetida) cls += ' repetida';
+    if (favorito)  cls += ' favorito';
+    if (troca)     cls += ' troca';
+    card.className    = cls;
+    card.dataset.id   = id;
+    card.dataset.nome = nome;
+
+    /* Imagem */
+    const img = document.createElement('img');
+    img.src = imgUrl || '';
+    img.alt = nome;
+    img.onerror = () => {
+      img.style.display = 'none';
+      const fb = document.createElement('div');
+      fb.style.cssText = 'width:80px;height:80px;border-radius:8px;background:#e4e3df;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:6px';
+      fb.textContent = '⚽';
+      card.insertBefore(fb, img.nextSibling);
+    };
+    card.appendChild(img);
+
+    /* Nome */
+    const nameEl = document.createElement('div');
+    nameEl.className   = 'card-name';
+    nameEl.textContent = nome;
+    card.appendChild(nameEl);
+
+    /* Raridade */
+    const rareEl = document.createElement('div');
+    rareEl.className   = 'card-rare';
+    rareEl.textContent = rarity;
+    card.appendChild(rareEl);
+
+    /* Tags */
+    const tagRep = document.createElement('div');
+    tagRep.className   = 'card-tag tag-rep';
+    tagRep.textContent = '🔁 Repetida';
+    tagRep.style.display = repetida ? '' : 'none';
+    card.appendChild(tagRep);
+
+    const tagFav = document.createElement('div');
+    tagFav.className   = 'card-tag tag-fav';
+    tagFav.textContent = '⭐ Favorita';
+    tagFav.style.display = favorito ? '' : 'none';
+    card.appendChild(tagFav);
+
+    const tagTroca = document.createElement('div');
+    tagTroca.className   = 'card-tag tag-troca';
+    tagTroca.textContent = '🔄 Para troca';
+    tagTroca.style.display = troca ? '' : 'none';
+    card.appendChild(tagTroca);
+
+    /* Botões */
+    const btns = document.createElement('div');
+    btns.className = 'card-btns';
+
+    const btnFav = document.createElement('button');
+    btnFav.title     = 'Favoritar';
+    btnFav.innerHTML = '<i class="ti ti-star"></i>';
+    btnFav.onclick   = () => {
+      const it = items.find(i => i.id === id);
+      it.favorito = !it.favorito;
+      it.troca    = false;
+      card.classList.toggle('favorito', it.favorito);
+      card.classList.remove('troca');
+      tagFav.style.display   = it.favorito ? '' : 'none';
+      tagTroca.style.display = 'none';
+      salvar();
+    };
+    btns.appendChild(btnFav);
+
+    const btnTroca = document.createElement('button');
+    btnTroca.title     = 'Para troca';
+    btnTroca.innerHTML = '<i class="ti ti-repeat"></i>';
+    btnTroca.onclick   = () => {
+      const it = items.find(i => i.id === id);
+      it.troca    = !it.troca;
+      it.favorito = false;
+      card.classList.toggle('troca', it.troca);
+      card.classList.remove('favorito');
+      tagTroca.style.display = it.troca ? '' : 'none';
+      tagFav.style.display   = 'none';
+      salvar();
+    };
+    btns.appendChild(btnTroca);
+
+    const btnDel = document.createElement('button');
+    btnDel.className = 'btn-del';
+    btnDel.title     = 'Remover';
+    btnDel.innerHTML = '<i class="ti ti-trash"></i>';
+    btnDel.onclick   = () => {
+      card.remove();
+      items = items.filter(i => i.id !== id);
+      salvar();
+      if (!document.querySelectorAll('.card').length) {
+        document.getElementById('grid').innerHTML =
+          '<div class="empty">Nenhuma figurinha ainda. Adicione a primeira! ⚽</div>';
+      }
+      updateStats();
+    };
+    btns.appendChild(btnDel);
+
+    card.appendChild(btns);
+    return card;
+  }
+
+  /* ── Adicionar nova figurinha ── */
+  function addCard() {
+    const nome     = document.getElementById('f-nome').value.trim();
+    if (!nome) { alert('Informe o nome da figurinha!'); return; }
+    const imgUrl   = document.getElementById('f-img').value.trim();
+    const rarity   = document.getElementById('f-rarity').value;
+    const repetida = document.getElementById('f-rep').checked;
+    const id       = Date.now();
+
+    const item = { id, nome, imgUrl, rarity, repetida, favorito: false, troca: false };
+    items.push(item);
+    salvar();
+
+    const grid  = document.getElementById('grid');
+    const empty = grid.querySelector('.empty');
+    if (empty) empty.remove();
+
+    grid.appendChild(criarCardEl(item));
+
+    document.getElementById('f-nome').value   = '';
+    document.getElementById('f-img').value    = '';
+    document.getElementById('f-rep').checked  = false;
+    document.getElementById('f-rarity').value = 'Comum';
+
+    updateStats();
+    filtrar();
+  }
+
+  /* ── Renderizar itens salvos ao carregar a página ── */
+  (function init() {
+    if (!items.length) return;
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    items.forEach(item => grid.appendChild(criarCardEl(item)));
+    updateStats();
+  })();
+</script>
+</body>
+</html>
