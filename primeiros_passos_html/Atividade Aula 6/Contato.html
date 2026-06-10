@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Contato — Tech News Senac</title>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <h1>Tech News <span>Senac</span></h1>
+            <p class="header-tagline">Portal de Notícias em Tecnologia</p>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="noticias.html">Notícias</a>
+                <a href="cursos.html">Cursos</a>
+                <a href="contato.html" class="active">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h2>Entre em Contato</h2>
+            <p class="form-subtitle">Envie sua dúvida ou sugestão e retornaremos em breve.</p>
+            <form action="https://formsubmit.co/your@email.com" method="POST">
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" name="email" id="email" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea name="mensagem" id="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                </div>
+                <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-brand">Tech News <span>Senac</span></p>
+            <p class="footer-desc">Informação tecnológica para quem está construindo o futuro.</p>
+            <nav class="contact-nav" aria-label="Menu de contato">
+                <p>Prefere enviar por e-mail direto?</p>
+                <a href="mailto:contato@escola.com"
+                   aria-label="Enviar e-mail de contato"
+                   class="contact-nav__btn">
+                   ✉ contato@escola.com
+                </a>
+            </nav>
+            <p class="footer-copy">© 2026 Tech News Senac — Desenvolvido por Melo Tec</p>
+        </div>
+    </footer>
+
+</body>
+</html>
